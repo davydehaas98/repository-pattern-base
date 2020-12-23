@@ -1,0 +1,25 @@
+name: .NET push on feature branch
+
+on:
+  push:
+    branches: [feature/*]
+
+jobs:
+  build:
+    # The virtual machine that will be used on GitHub
+    runs-on: ubuntu-latest
+    # Run the steps in a Docker container on the virtual machine
+    container:
+      image: mcr.microsoft.com/dotnet/sdk:5.0
+    steps:
+      # Checkout Git repository
+    - uses: actions/checkout@v2
+      # Install the dependencies needed for the project
+    - name: Install dependencies
+      run: dotnet restore
+      # Build the project
+    - name: Build
+      run: dotnet build
+      # Test the project
+    - name: Test
+      run: dotnet test
